@@ -23,6 +23,7 @@ import javax.persistence.Table;
 @Table(name = "endereco")
 public class Endereco implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +39,10 @@ public class Endereco implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEmpresa")
+    private Empresa empresa;
     
     public Long getId() {
         return id;
@@ -126,6 +131,17 @@ public class Endereco implements Serializable {
     @Override
     public String toString() {
         return "br.com.container.modelo.Endereco[ id=" + id + " ]";
+    }
+
+    public Empresa getEmpresa() {
+        if (empresa == null) {
+            empresa = new Empresa();
+        }
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     
