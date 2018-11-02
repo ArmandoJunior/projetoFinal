@@ -18,6 +18,7 @@ public class FuncionarioDaoImpl extends BaseDaoImpl<Funcionario, Long> implement
     @Override
     public Funcionario pesquisaEntidadeId(Long id, Session session) throws HibernateException {
         return (Funcionario) session.get(Usuario.class, id);
+        
     }
 
     @Override
