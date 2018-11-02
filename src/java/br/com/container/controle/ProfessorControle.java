@@ -8,6 +8,7 @@ package br.com.container.controle;
 import br.com.container.dao.HibernateUtil;
 import br.com.container.dao.ProfessorDao;
 import br.com.container.dao.ProfessorDaoImpl;
+import br.com.container.modelo.Endereco;
 import br.com.container.modelo.Professor;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ProfessorControle implements Serializable {
     private boolean pesquisaPorDisciplina = false;
     private String pesqNome = "";
     private String pesqDisciplina = "";
+    private Endereco endereco;
 
     private Session session;
     private ProfessorDao dao;
@@ -49,7 +51,6 @@ public class ProfessorControle implements Serializable {
 
     public void mudaToolbar() {
         prof = new Professor();
-        prof.setWhatsapp(true);
         profs = new ArrayList();
         disciplinas = new ArrayList();
         pesqNome = "";
@@ -84,6 +85,10 @@ public class ProfessorControle implements Serializable {
     public void salvar() {
         dao = new ProfessorDaoImpl();
         try {
+            
+            prof.setEndereco(endereco);
+            endereco.setPessoa(prof);
+            
             abreSessao();
             prof.setDisciplinas(parseDisciplinas());
             dao.salvarOuAlterar(prof, session);
@@ -93,7 +98,6 @@ public class ProfessorControle implements Serializable {
             System.err.println("Erro pesquisa professor:\n" + ex.getMessage());
         } finally {
             prof = new Professor();
-            prof.setWhatsapp(true);
             disciplinas = new ArrayList();
             session.close();
         }
@@ -182,7 +186,6 @@ public class ProfessorControle implements Serializable {
     public Professor getProf() {
         if (prof == null) {
             prof = new Professor();
-            prof.setWhatsapp(true);
         }
         return prof;
     }
@@ -220,4 +223,16 @@ public class ProfessorControle implements Serializable {
     public void setDisciplinas(List<String> disciplinas) {
         this.disciplinas = disciplinas;
     }
+
+    public Endereco getEndereco() {
+        if (endereco == null) {
+            endereco = new Endereco();
+        }
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
 }

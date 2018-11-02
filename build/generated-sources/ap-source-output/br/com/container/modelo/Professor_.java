@@ -6,16 +6,9 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Professor.class)
-public abstract class Professor_ {
+public abstract class Professor_ extends br.com.container.modelo.Pessoa_ {
 
-	public static volatile SingularAttribute<Professor, Boolean> whatsapp;
 	public static volatile SingularAttribute<Professor, String> disciplinas;
-	public static volatile SingularAttribute<Professor, String> endereco;
-	public static volatile SingularAttribute<Professor, String> foneMovel;
-	public static volatile SingularAttribute<Professor, String> nome;
-	public static volatile SingularAttribute<Professor, Long> id;
-	public static volatile SingularAttribute<Professor, String> foneFixo;
-	public static volatile SingularAttribute<Professor, String> email;
 
 }
 

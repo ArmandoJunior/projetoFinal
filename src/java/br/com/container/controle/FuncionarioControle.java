@@ -114,6 +114,7 @@ public class FuncionarioControle implements Serializable {
         funcionarioDao = new FuncionarioDaoImpl();
         abreSessao();
         try {
+            
             funcionario.setEndereco(endereco);
             endereco.setPessoa(funcionario);
 
