@@ -102,10 +102,10 @@
                     <p:inputText id="nome" value="#{funcionarioC.funcionario.nome}" required="true" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="celular" value="Celular :" />
-                    <p:inputText id="celular" value="#{funcionarioC.funcionario.celular}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:inputMask id="celular" value="#{funcionarioC.funcionario.celular}" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="fixo" value="Fixo :" />
-                    <p:inputText id="fixo" value="#{funcionarioC.funcionario.fixo}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:inputMask id="fixo" value="#{funcionarioC.funcionario.fixo}" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="email" value="E-mail :" />
                     <p:inputText id="email" value="#{funcionarioC.funcionario.email}" type="email"
@@ -127,7 +127,7 @@
                     <p:inputText id="complemento" value="#{funcionarioC.endereco.complemento}" required="true" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="observacao" value="Observacao :" />
-                    <p:inputText id="observacao" value="#{funcionarioC.endereco.observacao}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:inputTextarea id="observacao" value="#{funcionarioC.endereco.observacao}" cols="40" style="width: 100%; max-width: 600px;"/>
 
 
                     <h:outputLabel for="funcao" value="Função " />                   
