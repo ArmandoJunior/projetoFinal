@@ -28,6 +28,7 @@ public class Empresa implements Serializable {
     private String nome;
     private String contato;
     private String telefone;
+    
     @OneToOne(mappedBy = "empresa")
     private Endereco endereco;
 

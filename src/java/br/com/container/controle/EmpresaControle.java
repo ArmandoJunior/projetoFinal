@@ -74,10 +74,11 @@ public class EmpresaControle implements Serializable{
     public void limpar() {
         empresa = new Empresa();
     }
-
+    
     public void carregarParaAlterar() {
         mostra_toolbar = !mostra_toolbar;
         empresa = modelEmpresas.getRowData();
+        endereco = empresa.getEndereco();
     }
 
     public void excluir() {
@@ -104,7 +105,8 @@ public class EmpresaControle implements Serializable{
         abrirSessao();
 
         try {
-
+            empresa.setEndereco(endereco);
+            endereco.setEmpresa(empresa);
             empresaDao.salvarOuAlterar(empresa, session);
             Mensagem.salvar("Empresa " + empresa.getNome());
             empresa = null;
@@ -155,5 +157,15 @@ public class EmpresaControle implements Serializable{
     public void setMostra_toolbar(boolean mostra_toolbar) {
         this.mostra_toolbar = mostra_toolbar;
     }
+
+    public DataModel<Empresa> getModelEmpresas() {
+        return modelEmpresas;
+    }
+
+    public void setModelEmpresas(DataModel<Empresa> modelEmpresas) {
+        this.modelEmpresas = modelEmpresas;
+    }
+    
+    
 
 }

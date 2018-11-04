@@ -212,7 +212,8 @@
                     <li >
                         <h:link outcome="/logado/dashboard"><i class="fa fw-fw fa-home"> - Home</i></h:link>
                     </li>
-
+                    
+                    <!--Menu Lateral-->
                     <h:panelGroup rendered="#{request.isUserInRole('ROLE_ADMIN')}" >
                         <!--<li class="is-selected"  >-->
 
@@ -251,11 +252,11 @@
                                 <i class="fa fa fa-shield"> - Funções</i>
                             </h:link>
                         </li>
-<!--                        <li>
+                        <li>
                             <h:link outcome="/administrador/empresa" >
                                 <i class="fa fa fa-shield"> - Empresa</i>
                             </h:link>
-                        </li>-->
+                        </li>
                         <li>
                             <h:link outcome="/administrador/professor" >
                                 <i class="fa fa fa-shield"> - Professores</i></h:link>
