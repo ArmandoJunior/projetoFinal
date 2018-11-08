@@ -25,10 +25,11 @@
             <!--mostra a toolbar se mostra_toolbar == false-->
             <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{empresaC.mostra_toolbar}">
                 <p:toolbarGroup  >
-                    <p:commandButton value="Salvar" action="#{empresaC.salvar()}" update="panelGrop" />
+                    <p:commandButton value="Salvar" action="#{empresaC.salvar()}" update="panelGrop"
+                                     icon="ui-icon-disk"/>
                     <p:separator></p:separator>
                     <p:commandButton value="Cancelar" actionListener="#{empresaC.novaPesquisa()}" immediate="true"
-                                     update="@form" global="false" />
+                                     update="@form" global="false" icon="ui-icon-closethick"/>
                 </p:toolbarGroup>
 
                 <p:toolbarGroup align="right">
@@ -98,7 +99,6 @@
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
-
                     <p:outputLabel for="nome" value="Nome :" />
                     <p:inputText id="nome" value="#{empresaC.empresa.nome}" required="true" style="width: 100%; max-width: 600px;"/>
 
@@ -108,6 +108,14 @@
                     <p:outputLabel for="contato" value="Contato :" />
                     <p:inputText id="contato" value="#{empresaC.empresa.contato}" type="email"
                                  required="true" style="width: 100%; max-width: 600px;"/>
+
+                </p:panelGrid>
+                
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+                             styleClass="painel_grid_noborder" >
+                    <f:facet name="header">
+                        Endereço
+                    </f:facet>
 
                     <p:outputLabel for="logradouro" value="Logradouro :" />
                     <p:inputText id="logradouro" value="#{empresaC.endereco.logradouro}" required="true" style="width: 100%; max-width: 600px;"/>
