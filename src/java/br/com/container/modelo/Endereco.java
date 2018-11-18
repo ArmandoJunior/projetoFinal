@@ -107,7 +107,15 @@ public class Endereco implements Serializable {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
- 
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -132,18 +140,5 @@ public class Endereco implements Serializable {
     public String toString() {
         return "br.com.container.modelo.Endereco[ id=" + id + " ]";
     }
-
-    public Empresa getEmpresa() {
-        if (empresa == null) {
-            empresa = new Empresa();
-        }
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    
     
 }

@@ -6,6 +6,7 @@
 package br.com.container.modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class Empresa implements Serializable {
     private String contato;
     private String telefone;
     
-    @OneToOne(mappedBy = "empresa")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empresa")
     private Endereco endereco;
 
     public Long getId() {

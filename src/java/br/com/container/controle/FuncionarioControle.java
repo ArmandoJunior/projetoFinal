@@ -122,6 +122,7 @@ public class FuncionarioControle implements Serializable {
             Mensagem.salvar("Funcionário " + funcionario.getNome());
             funcionario = null;
             funcao = null;
+            endereco = null;
 
         } catch (HibernateException e) {
             boolean isLoginDuplicado = e.getCause().getMessage().contains("'email_UNIQUE'");

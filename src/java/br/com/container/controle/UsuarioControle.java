@@ -12,7 +12,6 @@ import br.com.container.dao.UsuarioDao;
 import br.com.container.dao.UsuarioDaoImpl;
 import br.com.container.modelo.Perfil;
 import br.com.container.modelo.Usuario;
-import br.com.container.util.GeradorLetraNumero;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,11 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import static org.primefaces.component.confirmdialog.ConfirmDialog.PropertyKeys.message;
 
 /**
  *
@@ -134,12 +138,17 @@ public class UsuarioControle implements Serializable {
         }
     }
 
-    public void salvar() {
+    public void salvar() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+
         usuario.setPerfil(perfil);
         usuarioDao = new UsuarioDaoImpl();
         abreSessao();
         String senha = "12345";
-        usuario.setSenha(senha);
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(senha.getBytes(), 0, senha.length());
+
+        usuario.setSenha(new BigInteger(1, md.digest()).toString(16));
         if (usuario.getId() == null) {
             usuario.setEnable(true);
         }

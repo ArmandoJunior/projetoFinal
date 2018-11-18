@@ -84,9 +84,9 @@ public class EmpresaControle implements Serializable{
     public void excluir() {
         empresa = modelEmpresas.getRowData();
         empresaDao = new EmpresaDaoImpl();
+        abrirSessao();
 
         try {
-            abrirSessao();
             empresaDao.remover(empresa, session);
             empresas.remove(empresa);
 
@@ -110,7 +110,9 @@ public class EmpresaControle implements Serializable{
             empresaDao.salvarOuAlterar(empresa, session);
             Mensagem.salvar("Empresa " + empresa.getNome());
             empresa = null;
-
+            endereco = null;
+            limpar();
+            
         } catch (HibernateException e) {
             System.out.println("Erro ao salvar empresa " + e.getMessage());
         } catch (Exception e) {
@@ -165,7 +167,5 @@ public class EmpresaControle implements Serializable{
     public void setModelEmpresas(DataModel<Empresa> modelEmpresas) {
         this.modelEmpresas = modelEmpresas;
     }
-    
-    
-
+   
 }

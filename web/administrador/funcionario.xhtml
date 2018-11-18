@@ -61,7 +61,7 @@
                     </p:column>
 
                     <p:column headerText="Endereço" priority="1">
-                        <h:outputText value="#{funcionario.endereco}" />
+                        <h:outputText value="#{funcionario.endereco.logradouro},  #{funcionario.endereco.numero}" />
                     </p:column>
 
                     <p:column headerText="Função" priority="2">

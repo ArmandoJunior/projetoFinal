@@ -43,9 +43,9 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(DiaDaSemana.class);
             cfg.addAnnotatedClass(Reserva.class);
             cfg.addAnnotatedClass(Funcao.class);
-            cfg.addAnnotatedClass(Funcionario.class);
             cfg.addAnnotatedClass(Agenda.class);
             cfg.addAnnotatedClass(Pessoa.class);
+            cfg.addAnnotatedClass(Funcionario.class);
             cfg.addAnnotatedClass(Professor.class);
             cfg.addAnnotatedClass(Planejamento.class);
             cfg.addAnnotatedClass(Atividade.class);
