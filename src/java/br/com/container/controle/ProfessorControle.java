@@ -64,10 +64,13 @@ public class ProfessorControle implements Serializable {
 
             if (!pesqNome.equals("") && !pesqDisciplina.equals("")) {
                 profs = dao.pesqPorNomeEDisciplina(pesqNome, pesqDisciplina, session);
+                
             } else if (!pesqDisciplina.equals("")) {
                 profs = dao.pesqPorDisciplina(pesqDisciplina, session);
+                
             } else if (!pesqNome.equals("")) {
                 profs = dao.pesquisaPorNome(pesqNome, session);
+                
             } else {
                 profs = dao.listaTodos(session);
             }
@@ -81,6 +84,10 @@ public class ProfessorControle implements Serializable {
             session.close();
         }
     }
+    public void limpar(){
+        prof = new Professor();
+        endereco = new Endereco();
+    }
 
     public void salvar() {
         dao = new ProfessorDaoImpl();
@@ -93,6 +100,8 @@ public class ProfessorControle implements Serializable {
             prof.setDisciplinas(parseDisciplinas());
             dao.salvarOuAlterar(prof, session);
             Mensagem.salvar("Professor " + prof.getNome());
+            limpar();
+            Mensagem.salvar("" + "Professor salvo com sucesso");
         } catch (Exception ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
             System.err.println("Erro pesquisa professor:\n" + ex.getMessage());
@@ -106,7 +115,10 @@ public class ProfessorControle implements Serializable {
     public void alterarProf() {
         mostraToolbar = !mostraToolbar;
         prof = modelProfs.getRowData();
+        endereco = prof.getEndereco();
         parseDisciplinas(prof.getDisciplinas());
+        
+        
     }
 
     private String parseDisciplinas() {
