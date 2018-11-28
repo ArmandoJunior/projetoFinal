@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../logado/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+        <h1 class="jr-titulo1">Planejamento Template</h1>
+
+        <h:form id="form_pesquisa">
+
+            <!--mostra a toolbar se mostra_toolbar == true-->
+            <p:toolbar styleClass="toolbar" rendered="#{!planejaTemplateC.mostra_toolbar}"  >
+                <p:toolbarGroup  >
+                    <p:commandButton value="Pesquisar" actionListener="#{planejaTemplateC.pesquisar()}"
+                                     update="dadosTabela" process="@this panelGridPesq" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Novo" process="@this" actionListener="#{planejaTemplateC.novo}" update="@form" global="false"  />
+                </p:toolbarGroup>
+            </p:toolbar>
+            <!--mostra a toolbar se mostra_toolbar == false-->
+            <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{planejaTemplateC.mostra_toolbar}">
+
+                <p:toolbarGroup  >
+                    <p:commandButton value="Salvar" action="#{planejaTemplateC.salvar()}" update="panelGrop" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Cancelar" actionListener="#{planejaTemplateC.novaPesquisa}" immediate="true"
+                                     update="@form" global="false" />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+
+
+            <p:messages id="mens"  autoUpdate="true" />
+
+            <!--inicio da tela de pesquisa-->
+            <h:panelGroup id="aba1" rendered="#{!planejaTemplateC.mostra_toolbar}" >
+                <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-2, 
+                             ui-grid-col-8" styleClass="painel_grid_noborder" >
+
+                    <p:outputLabel for="nome_planeja" value="Planejamento:" />
+                    <p:inputText id="nome_planeja" value="#{planejaTemplateC.planejamentoTemplate.nome}"  />
+                    <p:spacer />
+
+                </p:panelGrid>
+
+                <p:dataTable id="dadosTabela" value="#{planejaTemplateC.modelPlanejamentoTemplates}" var="planejamento" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum planejamento encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{planejamento.nome}" />
+                    </p:column>
+
+
+
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario"  >
+                        <p:commandButton icon="ui-icon-pencil" title="Alterar"
+                                         process="@this" update="@form" actionListener="#{planejaC.preparaAlterar()}">
+                            <f:setPropertyActionListener target="#{planejaTemplateC.planejamentoTemplate}" value="#{planejamento}"   />          
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-trash" actionListener="#{planejaTemplateC.excluir()}"
+                                         update="dadosTabela" title="Excluir">
+                            <p:confirm header="Confirmação" message="Tem certeza exclusão?" 
+                                       icon="ui-icon-alert" />
+                            <f:setPropertyActionListener target="#{planejaTemplateC.planejamentoTemplate}" value="#{planejamento}"   />
+                        </p:commandButton>
+
+
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGroup> 
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" 
+                                 icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" 
+                                 icon="ui-icon-close" />
+            </p:confirmDialog>
+            <!--fim da tela de pesquisa-->
+
+
+            <!--inicio da tela de cadastro (salvar e alterar)-->
+            <h:panelGroup id="panelGrop" rendered="#{planejaTemplateC.mostra_toolbar}" >
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
+                             styleClass="painel_grid_noborder" >
+
+                    <p:outputLabel for="nome" value="Planejamento :" />
+                    <p:inputText id="nome" value="#{planejaTemplateC.planejamentoTemplate.nome}" required="true" size="40" style="width: 100%; max-width: 600px;"/>
+
+                    <p:outputLabel for="descricao" value="Descrição :" />
+                    <p:inputTextarea id="descricao" value="#{planejaTemplateC.planejamentoTemplate.descricao}" />
+
+
+
+                    <!--1° coluna-->
+                    <p:commandButton value="ADD Atividade" onclick="PF('addAtividade').show();" process="@this"/>
+
+
+                </p:panelGrid>
+                <p:dataTable id="dadosDialog" value="#{planejaTemplateC.planejamentoTemplate.atividadeTemplates}"
+                             var="atividade" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum planejamento encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
+                    
+                    
+                    <!--cabeçalho-->
+                    <f:facet name="header">Atividade Template </f:facet>
+                    
+                    <p:column headerText="Atividade">
+                        <h:outputText value="#{atividade.name}" />
+                    </p:column>
+
+                    <p:column headerText="Descricao">
+                        <h:outputText value="#{atividade.descricao}" />
+                    </p:column>
+                    
+                    <p:commandButton value="Adicionar" update="dadosDialog, modal" actionListener="#{planejaTemplateC.addAtividadeTemplate()}"
+                                     process="@this"/>
+
+                </p:dataTable>
+            </h:panelGroup>
+            <!--fim da tela de cadastro-->
+
+            <p:dialog id="dialogo" header="Cadastro Atividade Template" widgetVar="addAtividade" modal="true" height="200">
+                <h:outputText value="Funcionou." />
+
+                <p:panelGrid columns="2" >
+                    <p:outputLabel for="nomeAtividade" value="Atividade Template :" />
+                    <p:inputText id="nomeAtividade" value="#{planejaTemplateC.atividadeTemplate.name}" 
+                                 required="true" size="60"  style="width: 100%; max-width: 800px;" />
+
+                    <p:outputLabel for="descricaoAtividade" value="Descricao Template :" />
+                    <p:inputTextarea id="descricaoAtividade" value="#{planejaTemplateC.atividadeTemplate.descricao}"
+                                     required="true"  style="width: 100%; max-width: 600px;" />
+                    
+                     <!--1° coluna-->
+                     <p:commandButton value="Adiciona" onclick="PF('addAtividade').hide();" update="dadosDialog, dialogo"
+                                      actionListener="#{planejaTemplateC.addAtividadeTemplate()}"
+                                     process="@this, nomeAtividade, descricaoAtividade"/>
+                </p:panelGrid>
+            </p:dialog>  
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -32,6 +32,22 @@ public class Pessoa implements Serializable {
     private String fixo;
     private String celular;
     private boolean isWhatsapp;
+
+    public Pessoa() {
+        
+    }
+    
+    public Pessoa(Long id, String nome, String email, String fixo, String celular, boolean isWhatsapp, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.fixo = fixo;
+        this.celular = celular;
+        this.isWhatsapp = isWhatsapp;
+        this.endereco = endereco;
+    }
+    
+    
     
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private Endereco endereco;
@@ -86,6 +102,9 @@ public class Pessoa implements Serializable {
     }
 
     public Endereco getEndereco() {
+        if (endereco == null) {
+            endereco = new Endereco();
+        }
         return endereco;
     }
 
