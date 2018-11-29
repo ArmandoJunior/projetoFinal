@@ -101,6 +101,9 @@ public class Endereco implements Serializable {
     }
 
     public Pessoa getPessoa() {
+        if (pessoa == null) {
+            pessoa = new Pessoa();
+        }
         return pessoa;
     }
 
@@ -109,6 +112,9 @@ public class Endereco implements Serializable {
     }
 
     public Empresa getEmpresa() {
+        if (empresa == null) {
+            empresa = new Empresa();
+        }
         return empresa;
     }
 

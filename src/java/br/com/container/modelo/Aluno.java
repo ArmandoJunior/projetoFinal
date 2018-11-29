@@ -19,6 +19,6 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "IdPessoa")
 public class Aluno extends Pessoa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
+     private static final long serialVersionUID = 1L;
+
 }

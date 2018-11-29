@@ -103,18 +103,48 @@
 
 
                 </p:panelGrid>
+                <p:dataTable id="dadosDialog" value="#{planejaTemplateC.planejamentoTemplate.atividadeTemplates}"
+                             var="atividade" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum planejamento encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
+                    
+                    
+                    <!--cabeçalho-->
+                    <f:facet name="header">Atividade Template </f:facet>
+                    
+                    <p:column headerText="Atividade">
+                        <h:outputText value="#{atividade.name}" />
+                    </p:column>
+
+                    <p:column headerText="Descricao">
+                        <h:outputText value="#{atividade.descricao}" />
+                    </p:column>
+                    
+                    <p:commandButton value="Adicionar" update="dadosDialog, modal" actionListener="#{planejaTemplateC.addAtividadeTemplate()}"
+                                     process="@this"/>
+
+                </p:dataTable>
             </h:panelGroup>
             <!--fim da tela de cadastro-->
 
-            <p:dialog header="Cadastro Atividade Template" widgetVar="addAtividade" modal="true" height="100">
+            <p:dialog id="dialogo" header="Cadastro Atividade Template" widgetVar="addAtividade" modal="true" height="200">
                 <h:outputText value="Funcionou." />
-                
-                <p:panelGrid columns="2">
-                     <p:outputLabel for="nomeAtividade" value="Atividade Template :" />
-                     <p:inputText id="nomeAtividade" value="#{planejaTemplateC.atividadeTemplate.name}" required="true" size="60"  style="width: 100%; max-width: 800px;" />
-                     
-                     <p:outputLabel for="descricaoAtividade" value="Descricao Template :" />
-                     <p:inputTextarea id="descricaoAtividade" value="#{planejaTemplateC.atividadeTemplate.descricao}" required="true"  style="width: 100%; max-width: 600px;" />
+
+                <p:panelGrid columns="2" >
+                    <p:outputLabel for="nomeAtividade" value="Atividade Template :" />
+                    <p:inputText id="nomeAtividade" value="#{planejaTemplateC.atividadeTemplate.name}" 
+                                 required="true" size="60"  style="width: 100%; max-width: 800px;" />
+
+                    <p:outputLabel for="descricaoAtividade" value="Descricao Template :" />
+                    <p:inputTextarea id="descricaoAtividade" value="#{planejaTemplateC.atividadeTemplate.descricao}"
+                                     required="true"  style="width: 100%; max-width: 600px;" />
+                    
+                     <!--1° coluna-->
+                     <p:commandButton value="Adiciona" onclick="PF('addAtividade').hide();" update="dadosDialog, dialogo"
+                                      actionListener="#{planejaTemplateC.addAtividadeTemplate()}"
+                                     process="@this, nomeAtividade, descricaoAtividade"/>
                 </p:panelGrid>
             </p:dialog>  
         </h:form>

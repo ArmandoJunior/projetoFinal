@@ -8,6 +8,8 @@ package br.com.container.controle;
 import br.com.container.dao.HibernateUtil;
 import br.com.container.modelo.Aluno;
 import br.com.container.modelo.Endereco;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,25 +24,22 @@ import org.hibernate.Session;
  */
 @ManagedBean(name = "alunoC")
 @ViewScoped
-public class AlunoControle {
+public class AlunoControle implements Serializable {
 
     private Aluno aluno;
-    private AlunoDao alunoDao;
     private Session session;
-
+    private AlunoDao alunoDao;
     private DataModel<Aluno> modelAluno;
     private List<Aluno> alunos;
 
     private boolean mostra_toolbar;
     private Endereco endereco;
 
-   
-
     public void abrirSessao() {
         if (session == null) {
             session = HibernateUtil.abreSessao();
         } else if (!session.isOpen()) {
-            this.session = HibernateUtil.abreSessao();
+            session = HibernateUtil.abreSessao();
         }
     }
 
@@ -58,7 +57,7 @@ public class AlunoControle {
     }
 
     public void pesquisar() {
-        alunoDao = (AlunoDao) new AlunoDaoImpl();
+        alunoDao = new AlunoDaoImpl();
         abrirSessao();
 
         try {
@@ -89,7 +88,7 @@ public class AlunoControle {
     public void excluir() {
 
         aluno = modelAluno.getRowData();
-        alunoDao = (AlunoDao) new AlunoDaoImpl();
+        alunoDao = new AlunoDaoImpl();
 
         abrirSessao();
         try {
@@ -106,26 +105,17 @@ public class AlunoControle {
     }
 
     public void salvar() {
-
-        alunoDao = (AlunoDao) new AlunoDaoImpl();
-        abrirSessao();
-
+        alunoDao = new AlunoDaoImpl();
         try {
-
             aluno.setEndereco(endereco);
             endereco.setPessoa(aluno);
-
+            
+            abrirSessao();
             alunoDao.salvarOuAlterar(aluno, session);
             Mensagem.salvar("Aluno " + aluno.getNome());
             aluno = null;
             endereco = null;
 
-        } catch (HibernateException e) {
-            boolean isLoginDuplicado = e.getCause().getMessage().contains("'email_UNIQUE'");
-            if (isLoginDuplicado) {
-                Mensagem.campoExiste("E-mail");
-            }
-            System.out.println("Erro ao salvar aluno " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Erro no salvar alunoDao Controle "
                     + e.getMessage());
@@ -139,6 +129,9 @@ public class AlunoControle {
     }
 
     public Aluno getAluno() {
+        if (aluno == null) {
+            aluno = new Aluno();
+        }
         return aluno;
     }
 
@@ -147,6 +140,9 @@ public class AlunoControle {
     }
 
     public List<Aluno> getAlunos() {
+        if (alunos == null) {
+            alunos = new ArrayList();
+        }
         return alunos;
     }
 
@@ -180,6 +176,5 @@ public class AlunoControle {
     public void setModelAluno(DataModel<Aluno> modelAluno) {
         this.modelAluno = modelAluno;
     }
-    
 
 }

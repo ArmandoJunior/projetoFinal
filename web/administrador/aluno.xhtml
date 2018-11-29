@@ -16,7 +16,7 @@
             <p:toolbar styleClass="toolbar" rendered="#{!alunoC.mostra_toolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Pesquisar" actionListener="#{alunoC.pesquisar()}"
-                                     update="dadosFuncionario" process="@this panelGridPesq" />
+                                     update="aluno" process="@this panelGridPesq" />
                     <p:separator></p:separator>
                     <p:commandButton value="Novo" actionListener="#{alunoC.novo()}" update="@form" global="false"  />
                 </p:toolbarGroup>
@@ -50,7 +50,7 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="dadosFuncionario" value="#{alunoC.modelAluno}" var="aluno" reflow="true"
+                <p:dataTable id="aluno" value="#{alunoC.modelAluno}" var="aluno" reflow="true"
                              style="margin-top: 20px;"  emptyMessage="Nenhum aluno encontrado">
                     <p:column headerText="Nome" priority="1">
                         <h:outputText value="#{aluno.nome}" />
@@ -127,12 +127,6 @@
                     <p:inputTextarea id="observacao" value="#{alunoC.endereco.observacao}" cols="40" style="width: 100%; max-width: 600px;"/>
 
 
-<!--                    <h:outputLabel for="funcao" value="Função " />                   
-                    <p:selectOneMenu styleClass="form-control" id="perfil" value="#{funcionarioC.funcao.id}" style="width: 90%; max-width: 580px;" required="true" 
-                                     requiredMessage="Campo função é obrigatório"  >
-                        <f:selectItem itemLabel="Selecione uma Função" itemValue="" />
-                        <f:selectItems value="#{funcionarioC.funcoes}" />
-                    </p:selectOneMenu>-->
 
                 </p:panelGrid>
             </h:panelGroup>

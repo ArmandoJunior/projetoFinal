@@ -6,6 +6,7 @@ import br.com.container.dao.PlanejamentoTemplateDaoImpl;
 import br.com.container.modelo.AtividadeTemplate;
 import br.com.container.modelo.PlanejamentoTemplate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -40,6 +41,7 @@ public class PlanejamentoTemplateControle implements Serializable {
 
     public void novo() {
         mostra_toolbar = !mostra_toolbar;
+        planejamentoTemplate.setAtividadeTemplates(new ArrayList<>());
 
     }
 
@@ -94,6 +96,8 @@ public class PlanejamentoTemplateControle implements Serializable {
 
     public void salvar() {
         planejamentoTemplateDao = new PlanejamentoTemplateDaoImpl();
+        
+        carregarPlanejamentoParaAtividade();
         abreSessao();
         try {
             planejamentoTemplateDao.salvarOuAlterar(planejamentoTemplate, sessao);
@@ -107,9 +111,19 @@ public class PlanejamentoTemplateControle implements Serializable {
             sessao.close();
         }
     }
+    private void carregarPlanejamentoParaAtividade(){
+        for (AtividadeTemplate atiTemps : planejamentoTemplate.getAtividadeTemplates()) {
+            atiTemps.setPlanejamentoTemplate(planejamentoTemplate);
+        }
+    }
 
     public void limparTela() {
         limpar();
+    }
+    
+    public void addAtividadeTemplate(){
+        planejamentoTemplate.getAtividadeTemplates().add(atividadeTemplate);
+        atividadeTemplate = new AtividadeTemplate();
     }
 
     //getters e setters
