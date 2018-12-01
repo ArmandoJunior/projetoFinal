@@ -16,7 +16,7 @@
             <p:toolbar styleClass="toolbar" rendered="#{!alunoC.mostra_toolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Pesquisar" actionListener="#{alunoC.pesquisar()}"
-                                     update="aluno" process="@this panelGridPesq" />
+                                     update="dadosAluno" process="@this panelGridPesq" />
                     <p:separator></p:separator>
                     <p:commandButton value="Novo" actionListener="#{alunoC.novo()}" update="@form" global="false"  />
                 </p:toolbarGroup>
@@ -50,7 +50,7 @@
 
                 </p:panelGrid>
 
-                <p:dataTable id="aluno" value="#{alunoC.modelAluno}" var="aluno" reflow="true"
+                <p:dataTable id="dadosAluno" value="#{alunoC.modelAluno}" var="aluno" reflow="true"
                              style="margin-top: 20px;"  emptyMessage="Nenhum aluno encontrado">
                     <p:column headerText="Nome" priority="1">
                         <h:outputText value="#{aluno.nome}" />
@@ -70,9 +70,14 @@
                                          process="@this" update="@form" actionListener="#{alunoC.carregarParaAlterar()}">
                             <f:setPropertyActionListener target="#{alunoC.aluno}" value="#{aluno}"   />          
                         </p:commandButton>
+                        
+                        <p:commandButton icon="ui-icon-image" title="Gerar Cartão da Biblioteca"
+                                         process="@this" update="@form" actionListener="#{alunoC.carregarParaAlterar()}">
+                            <f:setPropertyActionListener target="#{alunoC.aluno}" value="#{aluno}"   />          
+                        </p:commandButton>
 
                         <p:commandButton icon="ui-icon-trash" actionListener="#{alunoC.excluir()}"
-                                         update="dadosFuncionario" title="Excluir" >
+                                         update="dadosAluno" title="Excluir" >
                             <p:confirm header="Confirmação" message="Tem certeza exclusão?" 
                                        icon="ui-icon-alert" />
                             <f:setPropertyActionListener target="#{alunoC.aluno}" value="#{aluno}"   />
@@ -97,6 +102,9 @@
 
                     <p:outputLabel for="nome" value="Nome :" />
                     <p:inputText id="nome" value="#{alunoC.aluno.nome}" required="true" style="width: 100%; max-width: 600px;"/>
+                    
+                    <p:outputLabel for="cpf" value="CPF :" />
+                    <p:inputText id="cpf" value="#{alunoC.aluno.cpf}" required="true" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="celular" value="Celular :" />
                     <p:inputMask id="celular" value="#{alunoC.aluno.celular}" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>

@@ -21,6 +21,7 @@ import br.com.container.modelo.Planejamento;
 import br.com.container.modelo.PlanejamentoTemplate;
 import br.com.container.modelo.Professor;
 import br.com.container.modelo.Aluno;
+import br.com.container.modelo.Card;
 import br.com.container.modelo.Reserva;
 import br.com.container.modelo.Sala;
 import br.com.container.modelo.Usuario;
@@ -50,6 +51,7 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Pessoa.class);
             cfg.addAnnotatedClass(Funcionario.class);
             cfg.addAnnotatedClass(Aluno.class);
+            cfg.addAnnotatedClass(Card.class);
             cfg.addAnnotatedClass(Professor.class);
             cfg.addAnnotatedClass(Planejamento.class);
             cfg.addAnnotatedClass(Atividade.class);

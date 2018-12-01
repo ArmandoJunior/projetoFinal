@@ -13,7 +13,6 @@ import org.hibernate.Session;
 
 
 public class EnderecoDaoImpl extends BaseDaoImpl<Endereco, Long>implements EnderecoDao {
-
    
     @Override
     public Endereco pesquisaEntidadeId(Long id, Session session) throws HibernateException {

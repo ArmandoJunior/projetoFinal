@@ -9,6 +9,8 @@ import br.com.container.dao.AlunoDao;
 import br.com.container.dao.AlunoDaoImpl;
 import br.com.container.dao.HibernateUtil;
 import br.com.container.modelo.Aluno;
+import br.com.container.modelo.Card;
+import br.com.container.modelo.Curso;
 import br.com.container.modelo.Endereco;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class AlunoControle implements Serializable {
 
     private boolean mostra_toolbar;
     private Endereco endereco;
+    private Card carteirinha;
+    private Curso curso;
 
     public void abrirSessao() {
         if (session == null) {
@@ -59,10 +63,10 @@ public class AlunoControle implements Serializable {
 
     public void pesquisar() {
         alunoDao = new AlunoDaoImpl();
-        abrirSessao();
 
         try {
-
+            abrirSessao();
+            
             alunos = alunoDao.pesquisaPorNome(aluno.getNome(), session);
             modelAluno = new ListDataModel(alunos);
             aluno.setNome(null);

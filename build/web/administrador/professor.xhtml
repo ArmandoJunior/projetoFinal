@@ -13,6 +13,7 @@
 
         <h:form id="form_pesquisa">
 
+            <!--mostra a toolbar se mostra_toolbar == true-->
             <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{!profC.mostraToolbar}"  >
                 <p:toolbarGroup  >
                     <p:commandButton value="Pesquisar" actionListener="#{profC.pesquisar}"
@@ -22,6 +23,7 @@
                 </p:toolbarGroup>
             </p:toolbar>
 
+            <!--mostra a toolbar se mostra_toolbar == false-->
             <p:toolbar id="toolbar_salvar" styleClass="toolbar" rendered="#{profC.mostraToolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Salvar" action="#{profC.salvar()}" update="aba_alterar" />
@@ -33,6 +35,7 @@
 
             <p:messages id="mens"  autoUpdate="true" />
 
+            
             <h:panelGroup id="aba_pesquisa" rendered="#{!profC.mostraToolbar}" >
                 <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-8" styleClass="painel_grid_noborder" >
 
@@ -46,9 +49,19 @@
 
                 <p:dataTable id="dadosProf" value="#{profC.modelProfs}" var="prof" reflow="true" paginator="true"
                              style="margin-top: 20px;"  emptyMessage="Nenhum professor encontrado" rows="10" paginatorPosition="bottom"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                              currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
                              rowsPerPageTemplate="5,10,15">
+                    <f:facet name="{Exporters}">
+                        <div style="float:right;padding-top: 5px;">
+                            
+                            <h:commandLink>
+                                <p:graphicImage name="pdf.png" width="24" library="imagem"/>
+                                <p:dataExporter type="pdf" target="dadosProf" fileName="prof"/>
+                            </h:commandLink>
+
+                        </div>
+                    </f:facet>
                     <p:column headerText="Nome">
                         <h:outputText value="#{prof.nome}" />
                     </p:column>
@@ -66,7 +79,7 @@
                     </p:column>
 
 
-                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario"  >
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" exportable="false">
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
                                          process="@this" update="@form" actionListener="#{profC.alterarProf}">
                             <f:setPropertyActionListener target="#{profC.prof}" value="#{prof}"/>          
